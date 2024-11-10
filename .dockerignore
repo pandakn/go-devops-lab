@@ -1,0 +1,29 @@
+.git
+.gitignore
+
+# Exclude locally vendored dependencies.
+vendor/
+
+*.test
+*.out
+*.log
+
+# Test files
+*_test.go
+
+# Documentation
+*.md
+docs/
+LICENSE
+
+# infrastructure
+infrastructure
+
+# ide
+.idea/
+.vscode/
+
+# Makefiles
+Makefile
+
+.DS_Store

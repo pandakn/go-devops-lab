@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-hello-api-deployment
+spec:
+  selector:
+    matchLabels:
+      app: go-hello-api
+  template:
+    metadata:
+      labels:
+        app: go-hello-api
+    spec:
+      containers:
+        - name: go-hello-api
+          image: ntthwt/go-simple-api:latest
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 8080
+          # readinessProbe:
+          #   httpGet:
+          #     path: /healthz
+          #     port: 8080
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 10
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthz
+          #     port: 8080
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 10
