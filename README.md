@@ -8,6 +8,7 @@ A hands-on laboratory for DevOps practices with Go Project 🔧
 - [Docker](https://docs.docker.com/get-docker/) installed and running.
 - [Minikube](https://minikube.sigs.k8s.io/docs/start/) installed for running Kubernetes locally.
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) installed to manage Kubernetes clusters.
+- [Kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/) is used for managing Kubernetes configurations. Install it to apply templates effectively.
 
 ## 🚦 Getting Started
 
