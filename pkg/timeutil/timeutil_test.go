@@ -81,9 +81,9 @@ func TestIsTimeRangeOverlap(t *testing.T) {
 		{
 			name:        "invalid time segments in second range",
 			firstRange:  "09:00-12:00",
-			secondRange: "11:00",
+			secondRange: "15:00-17:00-19:00",
 			want:        false,
-			wantErr:     ErrInvalidTimeRangeFormat,
+			wantErr:     ErrInvalidTimeRangeSegments,
 		},
 		{
 			name:        "invalid start time format in first range",
