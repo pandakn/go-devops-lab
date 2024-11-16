@@ -97,3 +97,5 @@ curl http://api.hello.local?name=world
 ├── go.sum
 └── main.go
 ```
+
+## Test CI
