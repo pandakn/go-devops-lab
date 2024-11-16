@@ -65,6 +65,9 @@ curl http://api.hello.local?name=world
 
 ```plaintext
 .
+├── .github
+│   └── workflows
+│       └── ci.yaml
 ├── infrastructure
 │   └── k8s
 │       ├── base
@@ -77,8 +80,20 @@ curl http://api.hello.local?name=world
 │           │   └── kustomization.yaml
 │           └── prod
 │               └── kustomization.yaml
+├── pkg
+│   ├── logger
+│   │   └── logger.go
+│   └── timeutil
+│       ├── errors.go
+│       ├── timeutil.go
+│       └── timeutil_test.go
+├── .dockerignore
+├── .gitignore
+├── .golangci.yml
 ├── Dockerfile
 ├── Makefile
+├── README.md
 ├── go.mod
+├── go.sum
 └── main.go
 ```
