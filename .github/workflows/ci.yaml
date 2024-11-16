@@ -4,8 +4,13 @@ on:
   pull_request:
     types:
       - opened
+      - ready_for_review
     branches:
       - main
+    paths-ignore:
+      - "**/*.md" # Ignore markdown files (docs)
+      - "**/docs/**" # Ignore anything inside a docs directory
+      - "**/*.txt" # Ignore text files
 
 jobs:
   build:
