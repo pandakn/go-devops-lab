@@ -13,8 +13,8 @@ NC := \033[0m # No Color
 
 DEFAULT_GOAL := help
 
-.PHONY: build run stop help
 
+.PHONY: help
 ## Help: Show this help menu
 help:
 	@echo "Usage:"
@@ -31,19 +31,37 @@ help:
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 	@echo ""
-	@echo "Examples:"
-	@echo "  make run CONTAINER_NAME=my-app"
-	@echo "  make run CONTAINER_NAME=my-app HOST_PORT=3000"
-	@echo "  make stop CONTAINER_NAME=my-app"
 
-## Build: Build docker image
-build:
+.PHONY: lint
+## Lint: Run the Go linter with golangci-lint
+lint:
+	@echo "$(BLUE)Running linter...$(NC)"
+	@out=$$(golangci-lint run); \
+	if [ -n "$$out" ]; then \
+		echo "$$out"; \
+		echo "$(RED)Linter found issues!$(NC)"; \
+		exit 1; \
+	else \
+		echo "$(GREEN)Linter complete - no issues found.$(NC)"; \
+	fi
+	
+.PHONY: build
+## Build: Build Go binary
+build: lint
+	@echo "$(BLUE)Building Go binary$(NC)"
+	@go build -o bin/go-hello-api main.go
+	@echo "$(GREEN)Build complete: bin/go-hello-api$(NC)"
+
+.PHONY: docker-build
+## Docker Build: Build docker image
+doker-build:
 	@echo "$(BLUE)Building Docker image: $(IMAGE_NAME)$(NC)"
 	@docker build -t $(IMAGE_NAME) .
 	@echo "$(GREEN)Build complete: $(IMAGE_NAME)$(NC)"
 
-## Run: Run container with specified name (use: make run CONTAINER_NAME=my-app)
-run:
+.PHONY: docker-run
+## Docker Run: Run container with specified name (use: make run CONTAINER_NAME=my-app)
+docker-run:
 	@echo "$(BLUE)Starting container: $(CONTAINER_NAME)$(NC)"
 	@docker run -d \
 		--name $(CONTAINER_NAME) \
@@ -52,8 +70,9 @@ run:
 	@echo "$(GREEN)Container started: $(CONTAINER_NAME)$(NC)"
 	@echo "$(GREEN)Access at: http://localhost:$(HOST_PORT)$(NC)"
 
-## Stop: Stop and remove container
-stop:
+.PHONY: docker-stop
+## Docker Stop: Stop and remove container
+docker-stop:
 	@echo "$(BLUE)Stopping container: $(CONTAINER_NAME)$(NC)"
 	@docker stop $(CONTAINER_NAME) || true
 	@docker rm $(CONTAINER_NAME) || true
